@@ -1,0 +1,7 @@
+---
+- hosts: rig
+  remote_user: loic
+  become: yes
+  roles:
+    - role: plex
+  

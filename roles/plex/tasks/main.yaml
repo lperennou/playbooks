@@ -1,0 +1,26 @@
+# roles/plex/tasks/main.yaml
+---
+- name: add plex repos
+  template:
+    src: templates/plex.repo
+    dest: /etc/yum.repos.d/plex.repo
+
+- name: install plex
+  yum:
+    name: plexmediaserver
+    state: latest
+
+- name: enable plex
+  systemd:
+    name: plexmediaserver
+    enabled: yes
+    state: started
+
+- name: Authorize traffic in firewall
+  firewalld:  
+    immediate : yes
+    permanent:  yes
+    port: 32400/tcp
+    zone: public
+    state: enabled
+
