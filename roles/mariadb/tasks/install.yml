@@ -1,0 +1,11 @@
+# roles/mariadb/tasks/install.yml
+---
+- name: Install mariadb packages
+  package:
+    name: "{{ item }}"
+    state: installed
+  loop: 
+    - mariadb
+    - mariadb-server
+    - MySQL-python
+  tags: mariadb
