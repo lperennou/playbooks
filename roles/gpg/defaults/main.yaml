@@ -1,0 +1,3 @@
+gpg_home: "~"
+gpg_trustdb_file: "trustdb.gpg"
+import_directory: "~/gpg_import"

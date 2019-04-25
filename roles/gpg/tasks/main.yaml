@@ -1,0 +1,66 @@
+---
+- name: install gpg
+  become: yes
+  package: 
+    name: gnupg 
+    state: latest
+
+- name: Make sure the GPG config exists
+  become: yes
+  become_user: "{{ gpg_user }}"
+  command: "gpg --list-keys"
+  args:
+    creates: "{{ gpg_home }}/.gnupg"  #task is not run if file exists
+
+- name: make sure the import directory is empty
+  become: yes
+  become_user: "{{ gpg_user }}"
+  file:
+    path: "{{ import_directory }}"
+    state: absent
+
+- name: create import directory
+  become: yes
+  become_user: "{{ gpg_user }}"
+  file:
+    path: "{{ import_directory }}"
+    state: directory
+    mode: 0700
+    owner: "{{ gpg_user }}"
+    group: "{{ gpg_group }}"
+
+- name: deploy gpg keys
+  block:
+    - name: copy gpg keys
+      copy:
+        src: "{{ item.src }}"
+        dest: "{{ import_directory }}/{{ item.name }}"
+        owner: "{{ gpg_user }}"
+        group: "{{ gpg_group }}"
+        mode:  0600
+      with_items:
+        - { name: private.key, src: "{{ gpg_private_key }}" }
+        - { name: public.key, src: "{{ gpg_public_key }}" }
+        - { name: trust, src: "{{ gpg_trust_file }}" }
+
+    - name: import public key
+      command: "gpg --trustdb-name {{ gpg_trustdb_file }} --import {{ import_directory }}/public.key"
+      args:
+        creates: "{{ gpg_home }}/.gnupg/{{ gpg_trustdb_file }}"
+
+    - name: import private key
+      command: "gpg --import {{ import_directory }}/private.key"
+      changed_when: output is defined and output.stdout != ""
+
+    - name: import trust
+      command: "gpg --import-ownertrust {{ import_directory }}/trust"
+      changed_when: output is defined and output.stdout != ""
+    
+  become: yes
+  become_user: "{{ gpg_user }}"
+  always:
+    - name: delete temporary files
+      become: yes
+      file:
+        path: "{{ import_directory }}"
+        state: absent
