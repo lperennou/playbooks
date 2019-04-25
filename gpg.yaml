@@ -1,8 +1,6 @@
 ---
 - hosts: rig
   vars:
-    gpg_user: "loic"
-    gpg_group: "loic"
     gpg_private_key: "files/gpg/priv.key"
     gpg_public_key: "files/gpg/pub.key"
     gpg_trust_file: "files/gpg/trust.txt"
