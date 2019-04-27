@@ -1,0 +1,22 @@
+# roles/aws/tasks/main.yaml
+---
+- name: create .aws directory
+  file:
+    path: ~/.aws
+    mode: 0700
+    state: directory
+
+- name: deploy credentials
+  template:
+    src: templates/credentials.j2
+    dest: ~/.aws/credentials
+    mode: 0600
+
+- name: deploy boto config
+  template:
+    src: templates/boto.j2
+    dest: ~/.boto
+    mode: 0600
+
+
+    
