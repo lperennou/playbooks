@@ -1,8 +1,8 @@
 ---
-- hosts: rig
+- hosts: rig outscale
   vars:
-    gpg_private_key: "files/gpg/priv.key"
-    gpg_public_key: "files/gpg/pub.key"
-    gpg_trust_file: "files/gpg/trust.txt"
+    gpg_private_key: "secrets/gpg/priv.key"
+    gpg_public_key: "secrets/gpg/pub.key"
+    gpg_trust_file: "secrets/gpg/trust.txt"
   roles:
     - role: gpg
