@@ -5,9 +5,6 @@
   tasks:
     - name: install certbot certificates
       vars: 
-        certbot_certs: 
-        - domains: 
-            - perennou.party
         certbot_create_standalone_stop_services:
           - httpd 
         certbot_create_method: standalone
