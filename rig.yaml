@@ -1,7 +1,11 @@
 ---
-- hosts: outscale
+- hosts: all
   become: yes
   tasks:
+    - name: set hostname "{{ hostname }}"
+      hostname:
+        name: "{{ hostname }}"
+
     - name: Delete root password
       command: passwd -d root
 
@@ -27,6 +31,7 @@
         regexp: "^SELINUX="
         line: "SELINUX=disabled"
         backrefs: yes
+      notify: reboot 
     
     - name: configure fstab and mount nas disk
       mount: 
@@ -58,12 +63,11 @@
           - curl
           - wget
           - bash-completion
-    
-    - name: reboot (required by SELinux desactivation)
-      reboot:
 
   handlers:
     - name: Restart ssh
       shell: sleep 3; /etc/init.d/sshd restart
       async: 1
       poll: 0
+    - name: reboot 
+      reboot: 
