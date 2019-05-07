@@ -1,0 +1,22 @@
+
+---
+- hosts: rig outscale
+  become: yes
+  tasks:
+    - name: install certbot certificates
+      vars: 
+        certbot_certs: 
+        - domains: 
+            - perennou.party
+        certbot_create_standalone_stop_services:
+          - httpd 
+        certbot_create_method: standalone
+        certbot_create_if_missing: true
+        certbot_auto_renew_user: root
+      import_role:
+        name: certbot
+
+           
+
+
+       
