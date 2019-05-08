@@ -1,0 +1,12 @@
+# roles/ddclient/defaults/main.yml
+
+# by default, we ensure that service is present, configured and running.
+# allowed values: present, absent, install, configure, start
+# present calls install, configure, start 
+state: present
+
+# variables that need to be defined 
+ddclient_server: default  #server to contact for updates
+ddclient_login: default   
+ddclient_password: default
+ddclient_domain: default.com   #domain that is updated

@@ -1,0 +1,6 @@
+# roles/ddclient/tasks/absent.yml
+- name: disable ddclient
+  service:
+    name: ddclient
+    enabled: false
+    state: stopped

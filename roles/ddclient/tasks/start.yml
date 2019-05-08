@@ -1,0 +1,6 @@
+# roles/ddclient/tasks/start.yml
+- name: enable and start ddclient
+  service:
+    name: ddclient
+    enabled: true
+    state: started

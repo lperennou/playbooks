@@ -1,0 +1,3 @@
+# roles/ddclient/tasks/main.yml
+---
+- include: "{{ state }}.yml"

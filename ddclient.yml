@@ -1,0 +1,13 @@
+---
+- hosts: rig outscale
+  become: yes
+  tasks:
+    - name: include secrets
+      include_vars:
+        file: "secrets/ddclient/credentials.yml"
+    
+    - name: install and setup ddclient
+      vars:
+        state: present
+      import_role:
+        name: ddclient 

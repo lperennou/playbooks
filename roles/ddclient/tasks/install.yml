@@ -1,0 +1,5 @@
+# roles/ddclient/tasks/install.yml
+- name: install ddclient
+  yum: 
+    name: ddclient
+    state: present

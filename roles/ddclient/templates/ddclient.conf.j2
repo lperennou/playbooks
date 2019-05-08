@@ -1,0 +1,15 @@
+daemon=60                               # check every 60 seconds
+syslog=no                               # log update msgs to syslog
+#mail=                                  # mail all msgs to root
+#mail-failure=                          # mail failed update msgs to root
+pid=/var/run/ddclient/ddclient.pid      # record PID in file.
+ssl=yes                                 # use ssl-support.  Works with
+# postscript=script                     # run script after updating.
+
+
+protocol=dyndns2
+use=web, web=checkip.dyndns.com
+server={{ ddclient_server }}
+login={{ ddclient_login }}
+password={{ ddclient_password }}
+{{ ddclient_domain }}

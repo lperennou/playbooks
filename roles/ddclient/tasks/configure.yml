@@ -1,0 +1,9 @@
+# roles/ddclient/tasks/configure.yml
+- name: deploy /etc/ddclient.conf 
+  template:
+    src: templates/ddclient.conf.j2
+    dest: /etc/ddclient.conf
+    owner: ddclient
+    mode: u=rw
+
+
