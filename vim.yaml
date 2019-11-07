@@ -1,0 +1,5 @@
+---
+- hosts: nas
+  roles:
+    - role: vim
+  

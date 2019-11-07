@@ -1,0 +1,20 @@
+---
+- name: install VIM
+  become: yes
+  yum:
+    name: vim
+    state: latest 
+
+- name: clone Vundle
+  git:
+    repo: https://github.com/VundleVim/Vundle.vim.git
+    dest: ~/.vim/bundle/Vundle.vim
+
+- name: deploy template vimrc 
+  template:
+    src: templates/vimrc.j2
+    dest: ~/.vimrc
+
+- name: vundle plugins install
+  shell: vim +PluginInstall +qall
+    
