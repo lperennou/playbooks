@@ -1,0 +1,50 @@
+---
+- name: install zsh (Linux)
+  become: yes
+  package:
+    name: "{{ packages }}"
+    state: latest 
+  vars:
+    packages:
+      - zsh
+  when: ansible_facts['os_family'] != 'Darwin'
+
+- name: install zsh (Mac)
+  package:
+    name: "{{ packages }}"
+    state: latest 
+  vars:
+    packages:
+      - zsh
+      - zsh-completion
+  when: ansible_facts['os_family'] == 'Darwin'
+
+- name: make zsh default shell (Mac)
+  become: yes
+  shell: chsh -s $(which zsh)
+  when: ansible_facts['os_family'] == 'Darwin'
+
+- name: make zsh default shell (Linux)
+  shell: chsh -s $(which zsh)
+  when: ansible_facts['os_family'] != 'Darwin'
+
+- name: download and install oh-my-zsh
+  git: 
+    repo: https://github.com/robbyrussell/oh-my-zsh
+    dest: ~/.oh-my-zsh
+
+- name: deploy template zshrc (Mac)
+  template:
+    src: templates/zshrc.j2
+    dest: ~/.zshrc
+  vars:
+    ls_color: '-G'
+  when: ansible_facts['os_family'] == 'Darwin'
+
+- name: deploy template zshrc (Linux)
+  template:
+    src: templates/zshrc.j2
+    dest: ~/.zshrc
+  vars:
+    ls_color: '--color'
+  when: ansible_facts['os_family'] != 'Darwin'

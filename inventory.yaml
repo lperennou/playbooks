@@ -1,30 +1,21 @@
----
-rig:
-  hosts:
-    rig-public 
-  vars:
-    function: prod
-    hostname: nas-prod
-    certbot_certs: 
-      - domains:  #passed to certbot
-        - prod.perennou.party 
-    ddclient_domain: prod.perennou.party
-    gpg_user: loic
-    gpg_group: loic
-    nas_disk_uuid: "6111e246-08d1-46c2-9ae5-2ebf89c22986"
-
-outscale:
-  hosts:
-    5.104.96.160: 
-  vars: 
-    function: test
-    hostname: nas-test
-    certbot_certs: 
-      - domains:  #passed to certbot
-        - test.perennou.party 
-    ddclient_domain: test.perennou.party
-    gpg_user: outscale
-    gpg_group: outscale
-    ansible_user: outscale
-    nas_disk_uuid: "969ee4af-7077-4a4a-be61-a4c9a20ac909"
+all:
+  children:
+    nas:
+      hosts:
+        nas
+      vars:
+        function: prod
+        hostname: nas-prod
+        certbot_certs: 
+          - domains:  #passed to certbot
+            - prod.perennou.party 
+        ddclient_domain: prod.perennou.party
+        gpg_user: loic
+        gpg_group: loic
+        nas_disk_uuid: "6111e246-08d1-46c2-9ae5-2ebf89c22986"
+    macbook:
+      hosts:
+        localhost:
+      vars:
+        ansible_connection: local
 

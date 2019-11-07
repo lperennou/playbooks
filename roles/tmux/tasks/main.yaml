@@ -1,0 +1,18 @@
+---
+- name: install tmux with yum/apt
+  become: yes
+  package:
+    name: tmux
+    state: latest 
+  when: ansible_facts['os_family'] != 'Darwin'
+
+- name: install tmux with homebrew
+  package:
+    name: tmux
+    state: latest 
+  when: ansible_facts['os_family'] == 'Darwin'
+
+- name: deploy template tmux.conf 
+  template:
+    src: templates/tmux.j2
+    dest: ~/.tmux.conf

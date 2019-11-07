@@ -1,9 +1,16 @@
 ---
 - name: install VIM
   become: yes
-  yum:
+  package:
     name: vim
     state: latest 
+  when: ansible_facts['os_family'] != 'Darwin'
+
+- name: install VIM with homebrew
+  package:
+    name: vim
+    state: latest 
+  when: ansible_facts['os_family'] == 'Darwin'
 
 - name: clone Vundle
   git:
