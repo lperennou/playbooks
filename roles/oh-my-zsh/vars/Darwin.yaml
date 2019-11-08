@@ -1,0 +1,5 @@
+pkg_manager_become: no
+packages:
+  - zsh
+  - zsh-completion
+ls_color: "-G"

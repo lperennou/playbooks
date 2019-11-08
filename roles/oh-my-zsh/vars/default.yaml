@@ -1,0 +1,4 @@
+pkg_manager_become: yes
+packages:
+  - zsh
+ls_color: "--color"
