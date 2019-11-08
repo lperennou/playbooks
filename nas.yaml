@@ -35,11 +35,12 @@
     
     - name: configure fstab and mount nas disk
       mount: 
-        src: UUID={{ nas_disk_uuid }}
+        src: UUID="{{ nas_disk_uuid }}"
         path: /mnt/nas #is created if needed
-        fstype: btrfs 
+        fstype: ext4
         state: mounted
         passno: 2
+        opts: defaults,nofail
     
     - name: upgrade all packages
       yum: name=* state=latest
@@ -56,13 +57,12 @@
         state: latest
       vars:
         packages:
-          - tmux 
+          - git
           - htop 
           - yum-utils 
           - unzip
           - curl
           - wget
-          - bash-completion
 
   handlers:
     - name: Restart ssh
