@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
- export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/Library/TeX/texbin/:/usr/local/anaconda3/bin:$HOME/.gem/ruby/X.X.0/bin:$HOME/Library/Python/3.7/bin/:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
@@ -98,3 +98,12 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ls="ls {{ ls_color }}"
+
+#add user@hostname in preambule of prompt
+#PROMPT="$fg[blue]%}$USER@%{$fg[cyan]%}%m ${PROMPT}"
+
+
+# set xterm-256color to be the default TERM, but right after that, 
+# add a command that would re-export TERM as screen-256color if tmux is running:
+export TERM=xterm-256color
+[ -n "$TMUX" ] && export TERM=screen-256color
